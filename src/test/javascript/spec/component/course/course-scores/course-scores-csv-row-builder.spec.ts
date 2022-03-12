@@ -39,7 +39,7 @@ describe('The CourseScoresCsvRowBuilder', () => {
         const user = new User();
         user.name = 'Testuser ';
         user.login = ' login ';
-        user.email = 'mail@example.com ';
+        user.visibleEmail = 'mail@example.com ';
         user.visibleRegistrationNumber = ' 123456789  ';
         const student = new CourseScoresStudentStatistics(user);
 

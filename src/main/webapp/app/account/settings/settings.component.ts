@@ -36,7 +36,7 @@ export class SettingsComponent implements OnInit {
                 this.settingsForm.patchValue({
                     firstName: user.firstName,
                     lastName: user.lastName,
-                    email: user.email,
+                    email: user.visibleEmail,
                     langKey: user.langKey,
                 });
                 this.account = user;

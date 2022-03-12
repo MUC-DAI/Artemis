@@ -69,7 +69,8 @@ export class CourseScoresCsvRowBuilder {
     setUserInformation(student: CourseScoresStudentStatistics) {
         this.set(NAME_KEY, student.user.name!.trim());
         this.set(USERNAME_KEY, student.user.login!.trim());
-        this.set(EMAIL_KEY, student.user.email!.trim());
+        // TODO: Remove email address from CSV?
+        this.set(EMAIL_KEY, student.user.visibleEmail!.trim());
         this.set(REGISTRATION_NUMBER_KEY, student.user.visibleRegistrationNumber?.trim() ?? '');
     }
 

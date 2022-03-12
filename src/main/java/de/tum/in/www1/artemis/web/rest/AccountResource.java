@@ -154,6 +154,7 @@ public class AccountResource {
         long start = System.currentTimeMillis();
         User user = userRepository.getUserWithGroupsAuthoritiesAndGuidedTourSettings();
         user.setVisibleRegistrationNumber();
+        user.setVisibleEmail();
         UserDTO userDTO = new UserDTO(user);
         log.info("GET /account {} took {}ms", user.getLogin(), System.currentTimeMillis() - start);
         return userDTO;

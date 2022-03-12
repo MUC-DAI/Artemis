@@ -23,7 +23,7 @@ describe('SettingsComponent', () => {
         firstName: 'John',
         lastName: 'Doe',
         activated: true,
-        email: 'john.doe@mail.com',
+        visibleEmail: 'john.doe@mail.com',
         langKey: 'en',
         login: 'john',
         authorities: [],

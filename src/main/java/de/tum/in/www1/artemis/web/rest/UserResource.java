@@ -146,6 +146,7 @@ public class UserResource {
         else {
             User newUser = userCreationService.createUser(managedUserVM);
 
+            // TODO Can this be reactivated?
             // NOTE: Mail service is NOT active at the moment
             // mailService.sendCreationEmail(newUser);
             return ResponseEntity.created(new URI("/api/users/" + newUser.getLogin()))
@@ -260,6 +261,7 @@ public class UserResource {
         log.debug("REST request to get User : {}", login);
         return ResponseUtil.wrapOrNotFound(userRepository.findOneWithGroupsAndAuthoritiesByLogin(login).map(user -> {
             user.setVisibleRegistrationNumber();
+            user.setVisibleEmail();
             return new UserDTO(user);
         }));
     }

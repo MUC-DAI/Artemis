@@ -83,7 +83,7 @@ export class RegisterComponent implements OnInit, AfterViewInit {
             user.firstName = this.registerForm.get(['firstName'])!.value;
             user.lastName = this.registerForm.get(['lastName'])!.value;
             user.login = this.registerForm.get(['login'])!.value;
-            user.email = this.registerForm.get(['email'])!.value;
+            user.visibleEmail = this.registerForm.get(['email'])!.value;
             user.password = password;
             user.langKey = this.translateService.currentLang;
             this.registerService.save(user).subscribe({

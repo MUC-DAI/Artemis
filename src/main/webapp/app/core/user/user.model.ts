@@ -19,7 +19,7 @@ export class User extends Account {
         login?: string,
         firstName?: string,
         lastName?: string,
-        email?: string,
+        visibleEmail?: string,
         activated?: boolean,
         langKey?: string,
         authorities?: string[],
@@ -33,7 +33,7 @@ export class User extends Account {
         password?: string,
         imageUrl?: string,
     ) {
-        super(activated, authorities, email, firstName, langKey, lastName, login, imageUrl);
+        super(activated, authorities, visibleEmail, firstName, langKey, lastName, login, imageUrl);
         this.id = id;
         this.groups = groups;
         this.createdBy = createdBy;

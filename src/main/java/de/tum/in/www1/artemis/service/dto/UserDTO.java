@@ -39,9 +39,7 @@ public class UserDTO extends AuditingEntityDTO {
     @Size(max = 50)
     private String lastName;
 
-    @Email
-    @Size(min = 5, max = 100)
-    private String email;
+    private String visibleEmail;
 
     private String visibleRegistrationNumber;
 
@@ -70,12 +68,12 @@ public class UserDTO extends AuditingEntityDTO {
     }
 
     public UserDTO(User user) {
-        this(user.getId(), user.getLogin(), user.getName(), user.getFirstName(), user.getLastName(), user.getEmail(), user.getVisibleRegistrationNumber(), user.getActivated(),
-                user.getImageUrl(), user.getLangKey(), user.isInternal(), user.getCreatedBy(), user.getCreatedDate(), user.getLastModifiedBy(), user.getLastModifiedDate(),
-                user.getLastNotificationRead(), user.getAuthorities(), user.getGroups(), user.getGuidedTourSettings(), user.getOrganizations());
+        this(user.getId(), user.getLogin(), user.getName(), user.getFirstName(), user.getLastName(), user.getVisibleEmail(), user.getVisibleRegistrationNumber(),
+                user.getActivated(), user.getImageUrl(), user.getLangKey(), user.isInternal(), user.getCreatedBy(), user.getCreatedDate(), user.getLastModifiedBy(),
+                user.getLastModifiedDate(), user.getLastNotificationRead(), user.getAuthorities(), user.getGroups(), user.getGuidedTourSettings(), user.getOrganizations());
     }
 
-    public UserDTO(Long id, String login, String name, String firstName, String lastName, String email, String visibleRegistrationNumber, boolean activated, String imageUrl,
+    public UserDTO(Long id, String login, String name, String firstName, String lastName, String visibleEmail, String visibleRegistrationNumber, boolean activated, String imageUrl,
             String langKey, boolean isInternal, String createdBy, Instant createdDate, String lastModifiedBy, Instant lastModifiedDate, ZonedDateTime lastNotificationRead,
             Set<Authority> authorities, Set<String> groups, Set<GuidedTourSetting> guidedTourSettings, Set<Organization> organizations) {
 
@@ -84,7 +82,7 @@ public class UserDTO extends AuditingEntityDTO {
         this.name = name;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
+        this.visibleEmail = visibleEmail;
         this.visibleRegistrationNumber = visibleRegistrationNumber;
         this.activated = activated;
         this.imageUrl = imageUrl;
@@ -237,5 +235,13 @@ public class UserDTO extends AuditingEntityDTO {
 
     public void setInternal(boolean internal) {
         isInternal = internal;
+    }
+
+    public String getVisibleEmail() {
+        return visibleEmail;
+    }
+
+    public void setVisibleEmail(String visibleEmail) {
+        this.visibleEmail = visibleEmail;
     }
 }

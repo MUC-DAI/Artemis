@@ -349,11 +349,11 @@ public class User extends AbstractAuditingEntity implements Participant {
         isInternal = internal;
     }
 
-    public String getVisibleEmailTransient() {
+    public String getVisibleEmail() {
         return visibleEmailTransient;
     }
 
-    public void setVisibleEmailTransient() {
+    public void setVisibleEmail() {
         this.visibleEmailTransient = this.getEmail();
     }
 }

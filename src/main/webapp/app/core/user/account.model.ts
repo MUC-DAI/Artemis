@@ -4,7 +4,7 @@ export class Account {
     public activated?: boolean;
     public authorities?: string[];
     public login?: string;
-    public email?: string;
+    public visibleEmail?: string;
     public name?: string;
     public internal: boolean;
     public firstName?: string;
@@ -16,7 +16,7 @@ export class Account {
     constructor(
         activated?: boolean,
         authorities?: string[],
-        email?: string,
+        visibleEmail?: string,
         firstName?: string,
         langKey?: string,
         lastName?: string,
@@ -27,7 +27,7 @@ export class Account {
         this.login = login;
         this.firstName = firstName;
         this.lastName = lastName;
-        this.email = email;
+        this.visibleEmail = visibleEmail;
         this.activated = activated;
         this.langKey = langKey;
         this.authorities = authorities;

@@ -133,7 +133,7 @@
                 </div>
                 <div class="form-group">
                     <label class="form-control-label" jhiTranslate="userManagement.email">Email</label>
-                    <input type="email" class="form-control" name="email" #emailInput="ngModel" [(ngModel)]="user.email" minlength="5" required maxlength="100" email />
+                    <input type="email" class="form-control" name="email" #emailInput="ngModel" [(ngModel)]="user.visibleEmail" minlength="5" required maxlength="100" email />
 
                     <div *ngIf="emailInput.dirty && emailInput.invalid">
                         <small class="form-text text-danger" *ngIf="emailInput.errors?.required" jhiTranslate="entity.validation.required"> This field is required. </small>
