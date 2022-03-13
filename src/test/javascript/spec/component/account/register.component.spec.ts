@@ -67,6 +67,7 @@ describe('Component Tests', () => {
                 comp.register();
                 tick();
                 const user = new User();
+                user.visibleEmail = '';
                 user.firstName = '';
                 user.lastName = '';
                 user.password = 'password';
