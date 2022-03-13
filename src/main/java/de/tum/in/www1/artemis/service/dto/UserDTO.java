@@ -141,14 +141,6 @@ public class UserDTO extends AuditingEntityDTO {
         this.lastName = lastName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getVisibleRegistrationNumber() {
         return visibleRegistrationNumber;
     }
@@ -223,10 +215,9 @@ public class UserDTO extends AuditingEntityDTO {
 
     @Override
     public String toString() {
-        return "UserDTO{" + "login='" + login + '\'' + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", email='" + email + '\'' + ", imageUrl='"
-                + imageUrl + '\'' + ", activated=" + activated + ", langKey='" + langKey + '\'' + ", createdBy=" + getCreatedBy() + ", createdDate=" + getCreatedDate()
-                + ", lastModifiedBy='" + getLastModifiedBy() + '\'' + ", lastModifiedDate=" + getLastModifiedDate() + ", lastNotificationRead=" + lastNotificationRead
-                + ", authorities=" + authorities + "}";
+        return "UserDTO{" + "login='" + login + '\'' + ", firstName='" + firstName + '\'' + ", lastName='" + lastName + '\'' + ", imageUrl='" + imageUrl + '\'' + ", activated="
+                + activated + ", langKey='" + langKey + '\'' + ", createdBy=" + getCreatedBy() + ", createdDate=" + getCreatedDate() + ", lastModifiedBy='" + getLastModifiedBy()
+                + '\'' + ", lastModifiedDate=" + getLastModifiedDate() + ", lastNotificationRead=" + lastNotificationRead + ", authorities=" + authorities + "}";
     }
 
     public boolean isInternal() {

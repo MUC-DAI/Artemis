@@ -137,7 +137,7 @@ public class UserResource {
         else if (userRepository.findOneByLogin(managedUserVM.getLogin().toLowerCase()).isPresent()) {
             throw new LoginAlreadyUsedException();
         }
-        else if (userRepository.findOneByEmailIgnoreCase(managedUserVM.getEmail()).isPresent()) {
+        else if (userRepository.findOneByEmailIgnoreCase(managedUserVM.getVisibleEmail()).isPresent()) {
             throw new EmailAlreadyUsedException();
         }
         else if (managedUserVM.getGroups().stream().anyMatch(group -> !artemisAuthenticationProvider.isGroupAvailable(group))) {
@@ -168,7 +168,7 @@ public class UserResource {
         checkUsernameAndPasswordValidity(managedUserVM.getLogin(), managedUserVM.getPassword());
         log.debug("REST request to update User : {}", managedUserVM);
 
-        var existingUserByEmail = userRepository.findOneByEmailIgnoreCase(managedUserVM.getEmail());
+        var existingUserByEmail = userRepository.findOneByEmailIgnoreCase(managedUserVM.getVisibleEmail());
         if (existingUserByEmail.isPresent() && (!existingUserByEmail.get().getId().equals(managedUserVM.getId()))) {
             throw new EmailAlreadyUsedException();
         }

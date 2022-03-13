@@ -152,7 +152,7 @@ public class UserCreationService {
         user.setLogin(userDTO.getLogin());
         user.setFirstName(userDTO.getFirstName());
         user.setLastName(userDTO.getLastName());
-        user.setEmail(userDTO.getEmail());
+        user.setEmail(userDTO.getVisibleEmail());
         user.setImageUrl(userDTO.getImageUrl());
         if (userDTO.getLangKey() == null) {
             user.setLangKey(Constants.DEFAULT_LANGUAGE); // default language
@@ -173,7 +173,7 @@ public class UserCreationService {
             addTutorialGroups(userDTO); // Automatically add interactive tutorial course groups to the new created user if it has been specified
         }
         try {
-            Set<Organization> matchingOrganizations = organizationRepository.getAllMatchingOrganizationsByUserEmail(userDTO.getEmail());
+            Set<Organization> matchingOrganizations = organizationRepository.getAllMatchingOrganizationsByUserEmail(userDTO.getVisibleEmail());
             user.setOrganizations(matchingOrganizations);
         }
         catch (InvalidDataAccessApiUsageException | PatternSyntaxException pse) {
@@ -232,7 +232,7 @@ public class UserCreationService {
         user.setLogin(updatedUserDTO.getLogin().toLowerCase());
         user.setFirstName(updatedUserDTO.getFirstName());
         user.setLastName(updatedUserDTO.getLastName());
-        user.setEmail(updatedUserDTO.getEmail().toLowerCase());
+        user.setEmail(updatedUserDTO.getVisibleEmail().toLowerCase());
         user.setRegistrationNumber(updatedUserDTO.getVisibleRegistrationNumber());
         user.setImageUrl(updatedUserDTO.getImageUrl());
         user.setActivated(updatedUserDTO.isActivated());

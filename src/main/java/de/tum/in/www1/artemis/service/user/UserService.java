@@ -127,7 +127,7 @@ public class UserService {
                     userDto.setActivated(true);
                     userDto.setFirstName("Administrator");
                     userDto.setLastName("Administrator");
-                    userDto.setEmail("admin@localhost");
+                    userDto.setVisibleEmail("admin@localhost");
                     userDto.setLangKey("en");
                     userDto.setCreatedBy("system");
                     userDto.setLastModifiedBy("system");
@@ -234,7 +234,7 @@ public class UserService {
         newUser.setPassword(encryptedPassword);
         newUser.setFirstName(userDTO.getFirstName());
         newUser.setLastName(userDTO.getLastName());
-        newUser.setEmail(userDTO.getEmail().toLowerCase());
+        newUser.setEmail(userDTO.getVisibleEmail().toLowerCase());
         newUser.setImageUrl(userDTO.getImageUrl());
         newUser.setLangKey(userDTO.getLangKey());
         // new user is not active
@@ -253,7 +253,7 @@ public class UserService {
         }
 
         // Find user that has the same email
-        optionalExistingUser = userRepository.findOneWithGroupsByEmailIgnoreCase(userDTO.getEmail());
+        optionalExistingUser = userRepository.findOneWithGroupsByEmailIgnoreCase(userDTO.getVisibleEmail());
         if (optionalExistingUser.isPresent()) {
             User existingUser = optionalExistingUser.get();
 

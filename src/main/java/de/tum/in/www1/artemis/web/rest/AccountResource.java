@@ -104,7 +104,7 @@ public class AccountResource {
         SecurityUtils.checkUsernameAndPasswordValidity(managedUserVM.getLogin(), managedUserVM.getPassword());
 
         if (allowedEmailPattern.isPresent()) {
-            Matcher emailMatcher = allowedEmailPattern.get().matcher(managedUserVM.getEmail());
+            Matcher emailMatcher = allowedEmailPattern.get().matcher(managedUserVM.getVisibleEmail());
             if (!emailMatcher.matches()) {
                 throw new BadRequestAlertException("The provided email is invalid and does not follow the specified pattern", "Account", "emailInvalid");
             }
@@ -173,7 +173,7 @@ public class AccountResource {
             throw new AccessForbiddenException("User Registration is disabled");
         }
         final String userLogin = SecurityUtils.getCurrentUserLogin().orElseThrow(() -> new InternalServerErrorException("Current user login not found"));
-        Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(userDTO.getEmail());
+        Optional<User> existingUser = userRepository.findOneByEmailIgnoreCase(userDTO.getVisibleEmail());
         if (existingUser.isPresent() && (!existingUser.get().getLogin().equalsIgnoreCase(userLogin))) {
             throw new EmailAlreadyUsedException();
         }
@@ -181,7 +181,8 @@ public class AccountResource {
         if (user.isEmpty()) {
             throw new InternalServerErrorException("User could not be found");
         }
-        userCreationService.updateBasicInformationOfCurrentUser(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail(), userDTO.getLangKey(), userDTO.getImageUrl());
+        userCreationService.updateBasicInformationOfCurrentUser(userDTO.getFirstName(), userDTO.getLastName(), userDTO.getVisibleEmail(), userDTO.getLangKey(),
+                userDTO.getImageUrl());
     }
 
     /**
