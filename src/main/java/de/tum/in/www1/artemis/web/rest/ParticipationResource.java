@@ -377,7 +377,7 @@ public class ParticipationResource {
         for (StudentParticipation participation : participations) {
             // make sure the registration number is explicitly shown in the client
             participation.getStudents().forEach(user -> {
-                user.setVisibleEmail();
+                user.setVisibleRegistrationNumber();
                 user.setVisibleEmail();
             });
             // we only need participationId, title, dates and max points
