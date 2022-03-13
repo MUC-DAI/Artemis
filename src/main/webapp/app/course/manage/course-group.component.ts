@@ -289,7 +289,7 @@ export class CourseGroupComponent implements OnInit, OnDestroy {
                 const data = {};
                 data[NAME_KEY] = user.name?.trim() ?? '';
                 data[USERNAME_KEY] = user.login?.trim() ?? '';
-                data[EMAIL_KEY] = user.email?.trim() ?? '';
+                data[EMAIL_KEY] = user.visibleEmail?.trim() ?? '';
                 data[REGISTRATION_NUMBER_KEY] = user.visibleRegistrationNumber?.trim() ?? '';
                 return data;
             });

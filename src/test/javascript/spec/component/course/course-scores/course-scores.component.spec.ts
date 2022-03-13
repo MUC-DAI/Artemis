@@ -118,13 +118,13 @@ describe('CourseScoresComponent', () => {
     const user1 = {
         name: 'user1',
         login: 'user1login',
-        email: 'user1mail',
+        visibleEmail: 'user1mail',
         id: 1,
     } as User;
     const user2 = {
         name: 'user2',
         login: 'user2login',
-        email: 'user2mail',
+        visibleEmail: 'user2mail',
         id: 2,
     } as User;
     const participation1 = {
@@ -407,7 +407,7 @@ describe('CourseScoresComponent', () => {
             user1Row,
             user1.name!,
             user1.login!,
-            user1.email!,
+            user1.visibleEmail!,
             '0',
             '0%',
             '10',
@@ -421,7 +421,7 @@ describe('CourseScoresComponent', () => {
             roundScorePercentSpecifiedByCourseSettings(40 / 30, course).toLocaleString() + '%',
         );
         const user2Row = generatedRows[1];
-        validateUserRow(user2Row, user2.name!, user2.login!, user2.email!, '0', '0%', '5', '5', '50%', '0', '0%', '10', '0%', '15', '50%');
+        validateUserRow(user2Row, user2.name!, user2.login!, user2.visibleEmail!, '0', '0%', '5', '5', '50%', '0', '0%', '10', '0%', '15', '50%');
         const maxRow = generatedRows[3];
         expect(maxRow[OVERALL_COURSE_POINTS_KEY]).toEqual('30');
     });
