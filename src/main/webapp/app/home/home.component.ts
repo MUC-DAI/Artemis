@@ -1,6 +1,6 @@
 import { AfterViewChecked, Component, ElementRef, OnInit, Renderer2 } from '@angular/core';
 import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { User } from 'app/core/user/user.model';
 import { Credentials } from 'app/core/auth/auth-jwt.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -54,6 +54,8 @@ export class HomeComponent implements OnInit, AfterViewChecked {
 
     profileInfo: ProfileInfo | undefined = undefined;
 
+    localLogin = false;
+
     // Icons
     faCircleNotch = faCircleNotch;
 
@@ -70,6 +72,7 @@ export class HomeComponent implements OnInit, AfterViewChecked {
         private modalService: NgbModal,
         private profileService: ProfileService,
         private alertService: AlertService,
+        private route: ActivatedRoute,
     ) {}
 
     ngOnInit() {
@@ -103,6 +106,7 @@ export class HomeComponent implements OnInit, AfterViewChecked {
             }
         });
         this.registerAuthenticationSuccess();
+        this.localLogin = this.route.snapshot.queryParamMap.has('localLogin');
     }
 
     registerAuthenticationSuccess() {

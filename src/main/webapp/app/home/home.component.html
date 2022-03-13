@@ -11,7 +11,14 @@
         <div class="col-md-6 offset-md-3">
             <div class="row">
                 <div class="col-12 d-flex justify-content-center">
-                    <form name="loginForm" class="login-form" role="form" (change)="inputChange($event)" (ngSubmit)="login()">
+                    <form
+                        name="loginForm"
+                        class="login-form"
+                        role="form"
+                        (change)="inputChange($event)"
+                        (ngSubmit)="login()"
+                        *ngIf="localLogin || !profileInfo || !profileInfo.saml2"
+                    >
                         <div class="form-group">
                             <div class="alert alert-danger mt-1" *ngIf="authenticationError && !captchaRequired" jhiTranslate="home.errors.failedToLogin">
                                 <span class="bold">Failed to sign in!</span> Please check your username and password and try again.
@@ -88,11 +95,11 @@
                                 <span *ngIf="isSubmittingLogin" class="me-1"><fa-icon [icon]="faCircleNotch" [spin]="true"></fa-icon></span>
                                 <span jhiTranslate="login.form.button"> Sign in </span>
                             </button>
-                            <div *ngIf="profileInfo && profileInfo.saml2">
-                                <jhi-saml2-login [acceptTerms]="userAcceptTerms" [rememberMe]="rememberMe" [saml2Profile]="profileInfo.saml2"> </jhi-saml2-login>
-                            </div>
                         </div>
                     </form>
+                    <div *ngIf="!localLogin && profileInfo && profileInfo.saml2">
+                        <jhi-saml2-login [acceptTerms]="userAcceptTerms || !needsToAcceptTerms" [rememberMe]="rememberMe" [saml2Profile]="profileInfo.saml2"> </jhi-saml2-login>
+                    </div>
                 </div>
             </div>
         </div>
