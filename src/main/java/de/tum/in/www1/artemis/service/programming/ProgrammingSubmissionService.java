@@ -145,28 +145,34 @@ public class ProgrammingSubmissionService extends SubmissionService {
         }
 
         // TODO: we should avoid this call by storing the used default branch in the ProgrammingExerciseParticipation
-        String defaultBranch = versionControlService.get().getDefaultBranchOfRepository(programmingExerciseParticipation.getVcsRepositoryUrl());
+        System.out.println("Perf1");
+        String defaultBranch = "master"; // versionControlService.get().getDefaultBranchOfRepository(programmingExerciseParticipation.getVcsRepositoryUrl());
         if (commit.getBranch() != null && !commit.getBranch().equalsIgnoreCase(defaultBranch)) {
             // if the commit was made in a branch different than the default, ignore this
             throw new IllegalStateException(
                     "Submission for participation id " + participationId + " in branch " + commit.getBranch() + " will be ignored! Only the default branch is considered");
         }
+        System.out.println("Perf2");
         if (artemisGitName.equalsIgnoreCase(commit.getAuthorName()) && artemisGitEmail.equalsIgnoreCase(commit.getAuthorEmail())
                 && SETUP_COMMIT_MESSAGE.equals(commit.getMessage())) {
             // if the commit was made by Artemis and the message is "Setup" (this means it is an empty setup commit), we ignore this as well and do not create a submission!
             throw new IllegalStateException("Submission for participation id " + participationId + " based on an empty setup commit by Artemis will be ignored!");
         }
 
+        System.out.println("Perf3");
         if (programmingExerciseParticipation instanceof ProgrammingExerciseStudentParticipation && (programmingExerciseParticipation.getBuildPlanId() == null
                 || !programmingExerciseParticipation.getInitializationState().hasCompletedState(InitializationState.INITIALIZED))) {
+            System.out.println("Perf4");
             // the build plan was deleted before, e.g. due to cleanup, therefore we need to reactivate the build plan by resuming the participation
             // This is needed as a request using a custom query is made using the ProgrammingExerciseRepository, but the user is not authenticated
             // as the VCS-server performs the request
             SecurityUtils.setAuthorizationObject();
 
+            System.out.println("Perf5");
             participationService.resumeProgrammingExercise((ProgrammingExerciseStudentParticipation) programmingExerciseParticipation);
             // Note: in this case we do not need an empty commit: when we trigger the build manually (below), subsequent commits will work correctly
             try {
+                System.out.println("Perf6");
                 continuousIntegrationService.get().triggerBuild(programmingExerciseParticipation);
             }
             catch (ContinuousIntegrationException ex) {
@@ -174,12 +180,14 @@ public class ProgrammingSubmissionService extends SubmissionService {
             }
         }
 
+        System.out.println("Perf7");
         // There can't be two submissions for the same participation and commitHash!
         ProgrammingSubmission programmingSubmission = programmingSubmissionRepository.findFirstByParticipationIdAndCommitHash(participationId, commit.getCommitHash());
         if (programmingSubmission != null) {
             throw new IllegalStateException("Submission for participation id " + participationId + " and commitHash " + commit.getCommitHash() + " already exists!");
         }
 
+        System.out.println("Perf8");
         programmingSubmission = new ProgrammingSubmission();
         programmingSubmission.setCommitHash(commit.getCommitHash());
         log.info("Create new programmingSubmission with commitHash: {} for participation {}", commit.getCommitHash(), participationId);
@@ -194,6 +202,7 @@ public class ProgrammingSubmissionService extends SubmissionService {
 
         programmingExerciseParticipation.addSubmission(programmingSubmission);
 
+        System.out.println("Perf9");
         programmingSubmission = programmingSubmissionRepository.save(programmingSubmission);
 
         updateGitDiffReport(programmingExerciseParticipation);
