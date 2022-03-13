@@ -325,6 +325,7 @@ public class UserJenkinsGitlabIntegrationTest extends AbstractSpringIntegrationJ
         newUser.setLogin("batman");
         newUser.setEmail("foobar@tum.com");
         newUser.setGroups(Set.of("tutor", "instructor"));
+        newUser.setVisibleEmail();
 
         gitlabRequestMockProvider.mockAddUserToGroupsUserExists(newUser, programmingExercise.getProjectKey());
         jenkinsRequestMockProvider.mockCreateUser(newUser, false, false, false);
@@ -342,6 +343,7 @@ public class UserJenkinsGitlabIntegrationTest extends AbstractSpringIntegrationJ
         newUser.setLogin("batman");
         newUser.setEmail("foobar@tum.com");
         newUser.setGroups(Set.of("tutor", "instructor2"));
+        newUser.setVisibleEmail();
 
         gitlabRequestMockProvider.mockAddUserToGroupsFails(newUser, programmingExericse.getProjectKey());
         request.post("/api/users", new ManagedUserVM(newUser), HttpStatus.INTERNAL_SERVER_ERROR);

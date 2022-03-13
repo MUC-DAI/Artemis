@@ -157,6 +157,7 @@ public class AccountResourceIntegrationTest extends AbstractSpringIntegrationBam
             // setup user
             User user = ModelFactory.generateActivatedUser("ab123cd");
             user.setEmail("-");
+            user.setVisibleEmail();
             ManagedUserVM userVM = new ManagedUserVM(user);
             userVM.setPassword(getValidPassword());
 
@@ -171,6 +172,7 @@ public class AccountResourceIntegrationTest extends AbstractSpringIntegrationBam
             // setup user
             User user = ModelFactory.generateActivatedUser("ab123cd");
             user.setEmail("-");
+            user.setVisibleEmail();
             ManagedUserVM userVM = new ManagedUserVM(user);
             userVM.setPassword(getValidPassword());
 
@@ -264,6 +266,7 @@ public class AccountResourceIntegrationTest extends AbstractSpringIntegrationBam
 
         // update FirstName
         createdUser.setFirstName(updatedFirstName);
+        createdUser.setVisibleEmail();
 
         // make request
         request.put("/api/account", new UserDTO(createdUser), HttpStatus.OK);
@@ -303,6 +306,7 @@ public class AccountResourceIntegrationTest extends AbstractSpringIntegrationBam
         User createdUserSameEmail = userCreationService.createUser(new ManagedUserVM(userSameEmail));
         // update Email to one already used
         createdUser.setEmail(createdUserSameEmail.getEmail());
+        createdUser.setVisibleEmail();
 
         // make request
         request.put("/api/account", new UserDTO(createdUser), HttpStatus.BAD_REQUEST);

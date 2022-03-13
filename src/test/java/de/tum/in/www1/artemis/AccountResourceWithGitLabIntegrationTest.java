@@ -266,6 +266,7 @@ public class AccountResourceWithGitLabIntegrationTest extends AbstractSpringInte
         User newUser = ModelFactory.generateActivatedUser("newLogin");
         newUser.setActivated(false);
         newUser.setEmail("existingUser@mytum.de");
+        newUser.setVisibleEmail();
 
         // Register the user
         ManagedUserVM userVM = new ManagedUserVM(newUser);
@@ -285,6 +286,7 @@ public class AccountResourceWithGitLabIntegrationTest extends AbstractSpringInte
         User newUser = ModelFactory.generateActivatedUser("newLogin");
         newUser.setActivated(false);
         newUser.setEmail("existingUser@mytum.de");
+        newUser.setVisibleEmail();
 
         // Register the user
         ManagedUserVM userVM = new ManagedUserVM(newUser);

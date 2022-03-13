@@ -89,6 +89,7 @@ public class UserTestService {
 
         List<User> users = database.addUsers(numberOfStudents, numberOfTutors, numberOfEditors, numberOfInstructors);
         student = users.get(0);
+        student.setVisibleEmail();
         users.forEach(user -> cacheManager.getCache(UserRepository.USERS_CACHE).evict(user.getLogin()));
     }
 
@@ -165,6 +166,7 @@ public class UserTestService {
         student.setLangKey(newLangKey);
 
         student.setPassword(newPassword);
+        student.setVisibleEmail();
         mockDelegate.mockUpdateUserInUserManagement(student.getLogin(), student, newPassword, oldGroups);
 
         var managedUserVM = new ManagedUserVM(student, newPassword);
@@ -250,6 +252,7 @@ public class UserTestService {
         // First we create a new user with group
         student.setGroups(Set.of("instructor"));
         student = userRepository.save(student);
+        student.setVisibleEmail();
 
         // We will then update the user by modifying the groups
         var updatedUser = student;
@@ -272,6 +275,7 @@ public class UserTestService {
         student.setLogin("batman");
         student.setPassword("foobar");
         student.setEmail("batman@secret.invalid");
+        student.setVisibleEmail();
 
         mockDelegate.mockCreateUserInUserManagement(student, false);
 
@@ -293,6 +297,7 @@ public class UserTestService {
         student.setPassword("foobar1234");
         student.setEmail("batman@secret.invalid");
         student.setInternal(true);
+        student.setVisibleEmail();
 
         mockDelegate.mockCreateUserInUserManagement(student, false);
 
@@ -326,6 +331,7 @@ public class UserTestService {
         student.setLogin("batman");
         student.setPassword("foobar");
         student.setEmail("batman@secret.invalid");
+        student.setVisibleEmail();
 
         mockDelegate.mockCreateUserInUserManagement(student, false);
 
@@ -360,6 +366,7 @@ public class UserTestService {
         student.setLogin("batman");
         student.setPassword("foobar");
         student.setEmail("batman@secret.invalid");
+        student.setVisibleEmail();
 
         mockDelegate.mockCreateUserInUserManagement(student, true);
 
@@ -373,6 +380,7 @@ public class UserTestService {
         student.setLogin("@someusername");
         student.setPassword("foobar");
         student.setEmail("batman@secret.invalid");
+        student.setVisibleEmail();
 
         mockDelegate.mockCreateUserInUserManagement(student, false);
 
@@ -386,6 +394,7 @@ public class UserTestService {
         student.setLogin("batman");
         student.setPassword("foobar");
         student.setEmail("batman@secret.invalid");
+        student.setVisibleEmail();
 
         mockDelegate.mockFailToCreateUserInExernalUserManagement(student, false, true, false);
 
@@ -399,6 +408,7 @@ public class UserTestService {
         student.setLogin("batman");
         student.setPassword("foobar");
         student.setEmail("batman@secret.invalid");
+        student.setVisibleEmail();
 
         mockDelegate.mockFailToCreateUserInExernalUserManagement(student, false, false, true);
 
@@ -412,6 +422,7 @@ public class UserTestService {
         student.setLogin("batman");
         student.setPassword("foobar");
         student.setEmail("batman@secret.invalid");
+        student.setVisibleEmail();
 
         mockDelegate.mockFailToCreateUserInExernalUserManagement(student, true, false, false);
 
@@ -425,6 +436,7 @@ public class UserTestService {
         student.setEmail("batman@invalid.tum");
         student.setLogin("batman");
         student.setPassword(null);
+        student.setVisibleEmail();
 
         mockDelegate.mockCreateUserInUserManagement(student, false);
 
@@ -441,6 +453,7 @@ public class UserTestService {
         newUser.setId(null);
         newUser.setLogin("batman");
         newUser.setEmail("foobar@tum.com");
+        student.setVisibleEmail();
 
         mockDelegate.mockCreateUserInUserManagement(newUser, false);
 
@@ -467,6 +480,7 @@ public class UserTestService {
         newUser.setLogin("batman");
         newUser.setEmail("foobar@tum.com");
         newUser.setGroups(Set.of("tutor", "instructor2"));
+        newUser.setVisibleEmail();
 
         mockDelegate.mockCreateUserInUserManagement(newUser, false);
 
@@ -520,9 +534,9 @@ public class UserTestService {
         params.add("searchTerm", "student1@test.de");
         params.add("sortingOrder", "ASCENDING");
         params.add("sortedColumn", "id");
-        List<User> users = request.getList("/api/users", HttpStatus.OK, User.class, params);
+        List<UserDTO> users = request.getList("/api/users", HttpStatus.OK, UserDTO.class, params);
         assertThat(users).hasSize(1);
-        assertThat(users.get(0).getEmail()).isEqualTo("student1@test.de");
+        assertThat(users.get(0).getVisibleEmail()).isEqualTo("student1@test.de");
     }
 
     // Test
